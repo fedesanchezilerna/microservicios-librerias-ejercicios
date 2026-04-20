@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 /**
  * Librería de validación de datos de usuario.
  * Todos los métodos son estáticos y devuelven un {@link ResultadoValidacion}.
- *
  * Las reglas configurables se cargan desde el fichero
  * {@code reglas-validacion.properties} en el classpath.
  */
@@ -73,13 +72,13 @@ public class ValidadorUsuario {
             return ResultadoValidacion.error(
                     "La contraseña debe tener al menos " + PASSWORD_MIN_LONGITUD + " caracteres.");
         }
-        if (!password.chars().anyMatch(Character::isUpperCase)) {
+        if (password.chars().noneMatch(Character::isUpperCase)) {
             return ResultadoValidacion.error("La contraseña debe contener al menos una letra mayúscula.");
         }
-        if (!password.chars().anyMatch(Character::isDigit)) {
+        if (password.chars().noneMatch(Character::isDigit)) {
             return ResultadoValidacion.error("La contraseña debe contener al menos un número.");
         }
-        if (!password.chars().anyMatch(c -> "!@#$%^&*()_+-=[]{}|;':\",./<>?".indexOf(c) >= 0)) {
+        if (password.chars().noneMatch(c -> "!@#$%^&*()_+-=[]{}|;':\",./<>?".indexOf(c) >= 0)) {
             return ResultadoValidacion.error("La contraseña debe contener al menos un carácter especial.");
         }
         return ResultadoValidacion.ok();
